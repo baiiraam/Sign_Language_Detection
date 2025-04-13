@@ -8,45 +8,14 @@ import numpy as np
 
 data_dict = pickle.load(open('./data.pickle', 'rb'))
 
-import numpy as np
-
-# Choose your target length (42 or 84)
-target_length = 42
-
-processed_data = []
-for seq in data_dict['data']:
-    arr = np.array(seq)
-
-    # Case 1: Pad shorter sequences with zeros
-    if len(arr) < target_length:
-        padded = np.zeros(target_length)
-        padded[:len(arr)] = arr
-        processed_data.append(padded)
-
-    # Case 2: Truncate longer sequences
-    elif len(arr) > target_length:
-        processed_data.append(arr[:target_length])
-
-    # Case 3: Already correct length
-    else:
-        processed_data.append(arr)
-
-data = np.array(processed_data)  # Now works! Shape: (N_samples, 42)
 
 
-
-
-
-
-
-# data = np.asarray(data_dict['data'])
-
+data = np.asarray(data_dict['data'])
 labels = np.asarray(data_dict['labels'])
 
 x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size=0.2, shuffle=True, stratify=labels)
 
 model = RandomForestClassifier()
-
 model.fit(x_train, y_train)
 
 y_predict = model.predict(x_test)
