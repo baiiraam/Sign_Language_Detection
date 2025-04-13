@@ -1,10 +1,8 @@
 import os
-
 import cv2
-
 import shutil
 
-folder_path = "./data"  # Replace with your folder path
+folder_path = "./data"
 
 for item in os.listdir(folder_path):
     item_path = os.path.join(folder_path, item)
